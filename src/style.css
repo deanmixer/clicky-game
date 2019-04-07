@@ -1,0 +1,13 @@
+.divStyle {
+    padding: 10px;
+};
+  
+.picStyle {
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+  };
+
+  html {
+      background-color: black
+  }

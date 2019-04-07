@@ -1,0 +1,27 @@
+.divStyle {
+    padding: 6px;
+}
+  
+.picStyle {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+  }
+  
+  img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 186, 25, 0.801);
+  }
+
+  .container {
+    max-width: 750px;
+  }
+
+  @media only screen and (max-width: 640px) {
+    .picStlye {
+      width: 500px;
+
+    }
+  }
