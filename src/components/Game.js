@@ -16,6 +16,8 @@ const navStyle = {
   color: 'white'
 };
 
+let clickedId = ""
+
 const birds = [
   {
     "id": 1,
@@ -93,7 +95,6 @@ function shuffleArray(array) {
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {isToggleOn: true};
     this.guesser = this.guesser.bind(this);
   }
 
@@ -108,25 +109,40 @@ class Game extends React.Component {
     this.setState({ birds: this.state.birds });
   }
 
-  guesser() {
-    console.log(this.id);
-    this.setState({ message: "Correct!"})
-    this.setState({ score: this.state.score + 1 });
-    if (this.state.score >= this.state.topScore) {
-      this.setState({ topScore: this.state.topScore + 1})
-    }
-    console.log(this.state.score);
-    shuffleArray(this.state.birds)
+  guesser = e => {
+    const updatedBirds = this.state.birds.map(item => {
+      const newBird = { ...item };
+      if (newBird.id == e.target.id) {
+        if (newBird.picked) {  //This part would work if I had been able to get the 'updatedBirds' values to correctly overwrite this.state.birds
+          this.setState({ message: "Wrong!"})
+          this.setState({ score: 0 });
+          //There would be a line of code here to return all 'picked' values to false
+          return;
+        } 
+        else {
+            newItem.picked = true;
+            this.setState({
+              birds: this.newData,
+              message: "Correct!",
+            });
+            this.setState({ message: "Correct!"})
+            this.setState({ score: this.state.score + 1 });
+            if (this.state.score >= this.state.topScore) {
+              this.setState({ topScore: this.state.topScore + 1})
+            }
+            
+        }
+      }
+      return newBird;
+    });
+    this.setState({  //This was the part I wasn't able to get to work. To take the "picked=true" value from newBird and write it to this.state.birds
+      birds: this.updatedBirds,
+      message: "Correct!",
+      score: this.state.score + 1,
+    });
+    console.log(this.state.birds)
+    shuffleArray(updatedBirds)
   }
-
-  // guesser = event => {
-  //   let name = event.target.name;
-  //   const value = event.target.value;
-  //   this.setState({
-  //     [name]: value
-  //   });
-  //   console.log(this);
-  // };
 
   render() {
     const shuffledBirds = shuffleArray(this.state.birds);
@@ -144,7 +160,6 @@ class Game extends React.Component {
             </div>
           </div>
         </nav>
-        {/* <Header currentScore={this.state.score} /> */}
         <div className="container">
           <div className="row">
             {shuffledBirds.map((post, idx) => {
